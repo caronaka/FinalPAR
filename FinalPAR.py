@@ -22,16 +22,6 @@ Precio contiene dos decimales
 import csv
 
 
-'''
-El csv que se cargue se considerará válido si:
-❏ Documento tiene entre 7 y 8 caracteres numéricos de largo
-❏ No hay campos vacios
-❏ Email contiene un @ y un .
-❏ Precio contiene dos decimales
-
-'''
-
-
 def valida_entero(numero):
     try:
         entero = int(numero)
@@ -411,7 +401,7 @@ def menu():
 
         elif opcion == "5":
 
-            print("Recuerde que las consultas se encuentran almacenadas en archivolog.txt.")
+
             print("Adios!")
             lista_acciones.append("Salir")
             break
@@ -421,11 +411,12 @@ def menu():
 
     #print(lista_acciones)
     try:
-        with open("archivolog.txt", 'w', newline="") as f:
+        archivo = input("\nIngrese el nombre del archivo .log sin extension: ")+".txt"
+        with open(archivo, 'w', newline="") as f:
             for i in lista_acciones:
                 f.write(f"{i}\n")
 
-
+        print("\nSe guardo correctamente.")
     except IOError:
         print("Error con el archivo")
 
