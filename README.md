@@ -19,3 +19,4 @@ Documento tiene entre 7 y 8 caracteres numéricos de largo
 No hay campos vacios
 Email contiene un @ y un .
 Precio contiene dos decimales
+
