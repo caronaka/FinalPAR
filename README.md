@@ -1,5 +1,7 @@
 # FinalPAR
+
 Final Paradigmas de la Programacion 2020
+
 
 
 ## Consigna
@@ -18,9 +20,9 @@ El programa debe cumplir con los siguientes requisitos:
 
 5)Permitir obtener cantidad total de viajes realizados y monto total por documento, y mostrar los datos del empleado y los viajes. 
 
-6)Además se requiere que el sistema guarde las consultas en un archivo .log. 
+6)Además se requiere que el sistema guarde las consultas en un archivo .log
 
-7) El csv que se cargue se considerará válido si:
+7)El csv que se cargue se considerará válido si:
 
 Documento tiene entre 7 y 8 caracteres numéricos de largo
 
