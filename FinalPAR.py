@@ -22,14 +22,14 @@ Precio contiene dos decimales
 import csv
 
 
-def valida_entero(numero):
+def valida_entero(numero): #funcion que valida entero
     try:
         entero = int(numero)
         return True
     except:
         return False
 
-def valida_float(numero):
+def valida_float(numero): #funcion que valida si la variable es float. para validar monto.
     try:
         float_num = float(numero)
         #print("True")
@@ -42,7 +42,7 @@ def valida_float(numero):
 
 
 
-def validarCsvClientes(archivo):
+def validarCsvClientes(archivo): #funcion que hace las validaciones del archivo de clientes.  si no cumple al menos 1, devuelve false y un print. Caso contrario, devuelve true.
     #campos= ["Nombre","Dirección","Documento","Fecha Alta","Correo Electrónico","Empresa" ]
     with open (archivo, 'r',encoding="utf8") as f:
         archivo_csv = csv.reader(f)
@@ -120,6 +120,8 @@ def validarCsvViajes(archivo):
 #validarCsvViajes("viajes.csv")
 
 
+#decidi hacer dos funciones independientes para cada archivo ya que requerian distintas validaciones.
+
 
 def busquedaCliente():
 
@@ -165,7 +167,6 @@ def busquedaCliente():
 #busquedaCliente()
 
 
-#Permitir obtener el total de usuarios por empresa, y todos sus datos
 
 def totalUsuariosEmpresa():
 
@@ -199,14 +200,16 @@ def totalUsuariosEmpresa():
                     cliente = next(clientescsv, None)
 
 
+                if len(lista_clientes) ==0:
+                    print("\nNo se encontraron coincidencias en la busqueda.")
+                    return
+
                 print("----------------------------------------------------------------------------")
                 print(f"Empresa: {empresa_buscada} ")
                 print(f"Total Usuarios: {total_clientes}")
                 print("----------------------------------------------------------------------------")
                 print(f"[{campos[0]}, {campos[1]}, {campos[2]}, {campos[3]}, {campos[4]}, {campos[5]}]")
-                if len(lista_clientes) ==0:
-                    print("\nNo se encontraron coincidencias en la busqueda.")
-                    return
+
                 for cliente in lista_clientes:  #pasar a lista como en el ejemplo de consola
                     print(f"[{cliente[campos[0]]}, {cliente[campos[1]]}, {cliente[campos[2]]}, {cliente[campos[3]]}, {cliente[campos[4]]}, {cliente[campos[5]]}]")
 
@@ -240,10 +243,12 @@ def totalGastoEmpresa():
 
                 cliente = next(clientescsv, None)
                 acumulado_total = 0
+                lista_clientes = []
 
                 while cliente:
 
                     while cliente and cliente['Empresa'].lower() == empresa_buscada.lower():
+
                         #print(cliente['Empresa'],cliente['Nombre']) #recorre todo los empleados de nexos bien.
                         with open(archivo2, 'r',encoding="utf8") as viajesfile:
                             viajescsv = csv.DictReader(viajesfile)
@@ -261,11 +266,16 @@ def totalGastoEmpresa():
                                 viaje = next(viajescsv, None)
                             #print(acumulador_cliente)
 
+                        lista_clientes.append(cliente)
                         cliente = next(clientescsv, None)
 
                         acumulado_total += acumulador_cliente
 
                     cliente = next(clientescsv, None)
+
+                if len(lista_clientes) == 0:
+                    print("\nNo se encontraron coincidencias en la busqueda.")
+                    return
 
                 print("----------------------------------------------------------------------------")
                 print(f"{empresa_buscada}  ${acumulado_total:.2f}")
@@ -300,7 +310,7 @@ def totalGatosDni():
 
                 while valida_entero(dni_buscado) == False or len(dni_buscado) > 8 or len(dni_buscado) < 7:
 
-                    dni_buscado = input("Error en el formato del DNI. Ingrese DNI: ")
+                    dni_buscado = input("Error. El DNI debe tener entre 7 y 8 caracteres numericos. Ingrese DNI: ")
 
                 cliente = next(clientescsv, None)
                 lista_viajes = []
