@@ -2,6 +2,9 @@
 
 Final Paradigmas de la Programacion 2020
 
+## Lenguaje
+
+Python
 
 
 ## Consigna
