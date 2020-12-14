@@ -20,6 +20,7 @@ Precio contiene dos decimales
 
 '''
 import csv
+import os.path
 
 
 def valida_entero(numero): #funcion que valida entero
@@ -250,7 +251,7 @@ def totalGastoEmpresa():
                     while cliente and cliente['Empresa'].lower() == empresa_buscada.lower():
 
                         #print(cliente['Empresa'],cliente['Nombre']) #recorre todo los empleados de nexos bien.
-                        with open(archivo2, 'r',encoding="utf8") as viajesfile:
+                        with open(archivo2, 'r',encoding="utf8") as viajesfile:   #lo abro aca porque si lo abro en el inicio, no vuelve al inicio del archivo con cada ciclo.
                             viajescsv = csv.DictReader(viajesfile)
                             viaje = next(viajescsv, None)
                             acumulador_cliente = 0
@@ -260,7 +261,7 @@ def totalGastoEmpresa():
                                 while viaje and viaje['Documento'] == cliente['Documento']:
                                     gastos_int = float(viaje['monto'])
                                     #print(gastos_int)
-                                    acumulador_cliente += gastos_int
+                                    acumulador_cliente += gastos_int  #paso por paso para entenderlo mejor
 
                                     viaje = next(viajescsv, None)
                                 viaje = next(viajescsv, None)
@@ -380,7 +381,7 @@ def totalGatosDni():
 #totalGatosDni()
 
 def menu():
-    lista_acciones = []
+    lista_acciones = [] #para el archivo log
 
     while True:
         print("\n\n--------------------------- FACTURACION TAXIS ------------------------------")
@@ -421,7 +422,15 @@ def menu():
 
     #print(lista_acciones)
     try:
+
         archivo = input("\nIngrese el nombre del archivo .log sin extension: ")+".txt"
+        archivo_existe = os.path.isfile(archivo)
+        while archivo_existe:
+            archivo = input("\nEse nombre ya existe. Ingrese otro nombre: ")+".txt"
+            archivo_existe = os.path.isfile(archivo)
+
+
+
         with open(archivo, 'w', newline="") as f:
             for i in lista_acciones:
                 f.write(f"{i}\n")
